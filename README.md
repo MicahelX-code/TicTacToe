@@ -6,8 +6,8 @@ Splited in 3 plarts:
 3. play_with_computer.py - Runs if player decides to play alone against computer
 
 ## To-do list:
-*[  ]* Test level 2
-*[  ]* Finish level 3
-*[  ]* Make level 4
+* Test level 2
+* Finish level 3
+* Make level 4
 
-*[  ]* Remake everything to GUI using Tkinter
+* Remake everything to GUI using Tkinter
