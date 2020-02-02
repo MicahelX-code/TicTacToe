@@ -17,8 +17,8 @@ Runs if player decides to play alone against computer
 main function + level_1 + level_2 + level_3 + level_4 functions  
 
 ## To-do list:
-[ ] Test level 2
-[ ] Finish level 3
-[ ] Make level 4
+[checkbox:unchecked] Test level 2  
+[checkbox:unchecked] Finish level 3  
+[checkbox:unchecked] Make level 4  
   
-[ ] Remake everything to GUI using Tkinter
+[checkbox:unchecked] Remake everything to GUI using Tkinter
