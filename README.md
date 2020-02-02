@@ -16,11 +16,9 @@ main function + draw_board & check_win functions
 Runs if player decides to play alone against computer  
 main function + level_1 + level_2 + level_3 + level_4 functions  
 
-----------------------------------------------------------------------------------
-
 ## To-do list:
-* Test level 2
-* Finish level 3
-* Make level 4
-
-* Remake everything to GUI using Tkinter
+[ ] Test level 2
+[ ] Finish level 3
+[ ] Make level 4
+  
+[ ] Remake everything to GUI using Tkinter
