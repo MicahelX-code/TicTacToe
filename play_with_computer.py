@@ -66,7 +66,8 @@ def level_1(board):
 
 def level_2(board):
     """ Difficulty: medium
-        Fixed enemy's pairs
+        Win in 1 move if possible
+        Protect from win in 1 move
     """
     for letter in 'O', 'X':
         if ((board[3] == letter and board[6] == letter) or (board[1] == letter and board[2] == letter) or (board[4] == letter and board[8] == letter)) and board[0] != 'O':
@@ -143,12 +144,15 @@ def level_3(board):
 
 def level_4(board):
     """ Difficulty: impossible
-        Just win you
+        Play idealy
+        You lose or draw
     """
     return board
 
 
 def draw_a_board(board):
+    """ Draw or update the board in terminal
+    """
     os.system('cls' if os.name == 'nt' else 'clear')
     print("\n---------Tic Tac Toe Game---------\n\n")
     print("Player (X)     vs     Computer (O)\n\n")
