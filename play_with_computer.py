@@ -54,7 +54,7 @@ def main():
         elif result == -1:
             draw_a_board(board)
             print("\nDraw!\n")
-        
+
 
 def level_1(board):
     """ Difficulty: easy
@@ -130,7 +130,7 @@ def level_3(board):
     #                 if i % 2 != 0:
     #                     board[i] = 'O'
     #                     break
-    #             else: 
+    #             else:
     #                 board[random.choice(possible_to_play)] = 'O'
     #         else:
     #             pass
@@ -139,8 +139,8 @@ def level_3(board):
     #             board[random.choice([0, 2, 6, 8])] = 'O'
     #         else:
     #             board[4] = 'O'
-
     return board
+
 
 def level_4(board):
     """ Difficulty: impossible

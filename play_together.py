@@ -30,6 +30,7 @@ def main():
     else:
         print("\nDraw!\n")
 
+
 def draw_a_board(player1_to_move, board):
     """ Draw or update a board in a terminal
     """
@@ -41,10 +42,11 @@ def draw_a_board(player1_to_move, board):
     print("_____|_____|_____")
     print("     |     |     ")
     print(f"  {board[3]}  |  {board[4]}  |  {board[5]}  ")
-    print("_____|_____|_____")       
+    print("_____|_____|_____")
     print("     |     |     ")
     print(f"  {board[0]}  |  {board[1]}  |  {board[2]}  ")
     print("     |     |     \n")
+
 
 def check_win(letter, board):
     """ Returns 1 if last player to move won
