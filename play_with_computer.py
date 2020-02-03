@@ -64,6 +64,7 @@ def level_1(board):
     board[random.choice(possible_to_play)] = 'O'
     return board
 
+
 def level_2(board):
     """ Difficulty: medium
         Win in 1 move if possible
