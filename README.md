@@ -5,7 +5,6 @@
 work in progress...
 
 ## Terminal mode
-
 Splited in 3 plarts:
 1. game.py
 2. play_together.py - Runs if player decides to play with someone nearby
