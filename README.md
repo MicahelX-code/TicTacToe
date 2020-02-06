@@ -19,4 +19,4 @@ main function + draw_board & check_win functions
 
 ### play_with_computer.py
 Runs if player decides to play alone against computer  
-main function + level_1 + level_2 + level_3 + level_4 functions  
+main function + level_1 + level_2 + level_3 functions  
