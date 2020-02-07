@@ -7,7 +7,6 @@ def main():
     """ Main function
     """
     board = [1, 2, 3, 4, 5, 6, 7, 8, 9] # looks like a NumPad
-    player_to_move = False
     result = 0 # 0 while game is going
     difficulty = int(input("Enter a difficulty [1 - 3]\n>> "))
     # choose difficulty
@@ -22,7 +21,6 @@ def main():
     # main loop
     while not result:
         draw_a_board(board)
-        player_to_move = not player_to_move
         try:
             players_move = int(input("Your turn:\n>> ")) - 1
         except ValueError:
@@ -35,6 +33,7 @@ def main():
                 players_move = -1
         board[players_move] = 'X'
         result = check_win('X', board)
+        # win or draw (after player's move)
         if result == 1:
             draw_a_board(board)
             print("\nYou win!\n")
@@ -43,10 +42,10 @@ def main():
             draw_a_board(board)
             print("\nDraw!\n")
             break
-        player_to_move = not player_to_move
         board = make_move(board)
         result = check_win('O', board)
     else:
+        # lose or draw (after computer's move)
         if result == 1:
             draw_a_board(board)
             print("\nYou lose!\n")
@@ -57,7 +56,8 @@ def main():
 
 def level_1(board):
     """ Difficulty: easy
-        Random
+
+        Random possible to play square
     """
     possible_to_play = [i for i, x in enumerate(board) if x != 'X' and x != 'O']
     board[random.choice(possible_to_play)] = 'O'
@@ -66,27 +66,30 @@ def level_1(board):
 
 def level_2(board):
     """ Difficulty: medium
-        Win in 1 move if possible
-        Protect from win in 1 move
+
+        1) Win in 1 move if possible
+        2) Protect from win in 1 move
+        3) Or random possible to play square
     """
+    # win in 1 or protect from win in 1
     for letter in 'O', 'X':
-        if ((board[3] == letter and board[6] == letter) or (board[1] == letter and board[2] == letter) or (board[4] == letter and board[8] == letter)) and board[0] != 'O' and board[0] != 'X':
+        if ((board[3] == letter and board[6] == letter) or (board[1] == letter and board[2] == letter) or (board[4] == letter and board[8] == letter)) and board[0] == 1:
             board[0] = 'O'
-        elif ((board[0] == letter and board[2] == letter) or (board[4] == letter and board[7] == letter)) and board[1] != 'O'  and board[1] != 'X':
+        elif ((board[0] == letter and board[2] == letter) or (board[4] == letter and board[7] == letter)) and board[1] == 2:
             board[1] = 'O'
-        elif ((board[0] == letter and board[1] == letter) or (board[5] == letter and board[8] == letter) or (board[4] == letter and board[6] == letter)) and board[2] != 'O'  and board[2] != 'X':
+        elif ((board[0] == letter and board[1] == letter) or (board[5] == letter and board[8] == letter) or (board[4] == letter and board[6] == letter)) and board[2] == 3:
             board[2] = 'O'
-        elif ((board[0] == letter and board[6] == letter) or (board[4] == letter and board[5] == letter)) and board[3] != 'O'  and board[3] != 'X':
+        elif ((board[0] == letter and board[6] == letter) or (board[4] == letter and board[5] == letter)) and board[3] == 4:
             board[3] = 'O'
-        elif ((board[1] == letter and board[7] == letter) or (board[3] == letter and board[5] == letter) or (board[0] == letter and board[8] == letter) or (board[2] == letter and board[6] == letter)) and board[4] != 'O' and board[4] != 'X':
+        elif ((board[1] == letter and board[7] == letter) or (board[3] == letter and board[5] == letter) or (board[0] == letter and board[8] == letter) or (board[2] == letter and board[6] == letter)) and board[4] == 5:
             board[4] = 'O'
-        elif ((board[2] == letter and board[8] == letter) or (board[4] == letter and board[3] == letter)) and board[5] != 'O' and board[5] != 'O' and board[5] != 'X':
+        elif ((board[2] == letter and board[8] == letter) or (board[4] == letter and board[3] == letter)) and board[5] != 'O' and board[5] == 6:
             board[5] = 'O'    
-        elif ((board[0] == letter and board[3] == letter) or (board[2] == letter and board[4] == letter) or (board[7] == letter and board[8] == letter)) and board[6] != 'O' and board[6] != 'X':
+        elif ((board[0] == letter and board[3] == letter) or (board[2] == letter and board[4] == letter) or (board[7] == letter and board[8] == letter)) and board[6] == 7:
             board[6] = 'O'
-        elif ((board[6] == letter and board[8] == letter) or (board[1] == letter and board[4] == letter)) and board[7] != 'O' and board[7] != 'X':
+        elif ((board[6] == letter and board[8] == letter) or (board[1] == letter and board[4] == letter)) and board[7] == 8:
             board[7] = 'O'
-        elif ((board[6] == letter and board[7] == letter) or (board[0] == letter and board[4] == letter) or (board[2] == letter and board[5] == letter)) and board[8] != 'O' and board[8] != 'X':
+        elif ((board[6] == letter and board[7] == letter) or (board[0] == letter and board[4] == letter) or (board[2] == letter and board[5] == letter)) and board[8] == 9:
             board[8] = 'O'
         else:
             continue
@@ -99,27 +102,30 @@ def level_2(board):
 
 def level_3(board):
     """ Difficulty: hard
-        Play idealy
-        You lose or draw
+
+        1) Win in 1 move if possible
+        2) Protect from win in 1 move
+        3) Build a pair and force player to block it   
     """
+    # win in 1 or protect from win in 1
     for letter in 'O', 'X':
-        if ((board[3] == letter and board[6] == letter) or (board[1] == letter and board[2] == letter) or (board[4] == letter and board[8] == letter)) and board[0] != 'O' and board[0] != 'X':
+        if ((board[3] == letter and board[6] == letter) or (board[1] == letter and board[2] == letter) or (board[4] == letter and board[8] == letter)) and board[0] == 1:
             board[0] = 'O'
-        elif ((board[0] == letter and board[2] == letter) or (board[4] == letter and board[7] == letter)) and board[1] != 'O'  and board[1] != 'X':
+        elif ((board[0] == letter and board[2] == letter) or (board[4] == letter and board[7] == letter)) and board[1] == 2:
             board[1] = 'O'
-        elif ((board[0] == letter and board[1] == letter) or (board[5] == letter and board[8] == letter) or (board[4] == letter and board[6] == letter)) and board[2] != 'O'  and board[2] != 'X':
+        elif ((board[0] == letter and board[1] == letter) or (board[5] == letter and board[8] == letter) or (board[4] == letter and board[6] == letter)) and board[2] == 3:
             board[2] = 'O'
-        elif ((board[0] == letter and board[6] == letter) or (board[4] == letter and board[5] == letter)) and board[3] != 'O'  and board[3] != 'X':
+        elif ((board[0] == letter and board[6] == letter) or (board[4] == letter and board[5] == letter)) and board[3] == 4:
             board[3] = 'O'
-        elif ((board[1] == letter and board[7] == letter) or (board[3] == letter and board[5] == letter) or (board[0] == letter and board[8] == letter) or (board[2] == letter and board[6] == letter)) and board[4] != 'O' and board[4] != 'X':
+        elif ((board[1] == letter and board[7] == letter) or (board[3] == letter and board[5] == letter) or (board[0] == letter and board[8] == letter) or (board[2] == letter and board[6] == letter)) and board[4] == 5:
             board[4] = 'O'
-        elif ((board[2] == letter and board[8] == letter) or (board[4] == letter and board[3] == letter)) and board[5] != 'O' and board[5] != 'O' and board[5] != 'X':
+        elif ((board[2] == letter and board[8] == letter) or (board[4] == letter and board[3] == letter)) and board[5] != 'O' and board[5] == 6:
             board[5] = 'O'    
-        elif ((board[0] == letter and board[3] == letter) or (board[2] == letter and board[4] == letter) or (board[7] == letter and board[8] == letter)) and board[6] != 'O' and board[6] != 'X':
+        elif ((board[0] == letter and board[3] == letter) or (board[2] == letter and board[4] == letter) or (board[7] == letter and board[8] == letter)) and board[6] == 7:
             board[6] = 'O'
-        elif ((board[6] == letter and board[8] == letter) or (board[1] == letter and board[4] == letter)) and board[7] != 'O' and board[7] != 'X':
+        elif ((board[6] == letter and board[8] == letter) or (board[1] == letter and board[4] == letter)) and board[7] == 8:
             board[7] = 'O'
-        elif ((board[6] == letter and board[7] == letter) or (board[0] == letter and board[4] == letter) or (board[2] == letter and board[5] == letter)) and board[8] != 'O' and board[8] != 'X':
+        elif ((board[6] == letter and board[7] == letter) or (board[0] == letter and board[4] == letter) or (board[2] == letter and board[5] == letter)) and board[8] == 9:
             board[8] = 'O'
         else:
             continue
@@ -159,7 +165,7 @@ def level_3(board):
 def draw_a_board(board):
     """ Draw or update the board in terminal
     """
-    os.system('cls' if os.name == 'nt' else 'clear')
+    os.system('cls' if os.name == 'nt' else 'clear') # clears terminal
     print("\n---------Tic Tac Toe Game---------\n\n")
     print("Player (X)     vs     Computer (O)\n\n")
     print("     |     |     ")

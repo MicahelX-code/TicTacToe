@@ -4,9 +4,10 @@ import os
 def main():
     """ Main function
     """
-    player1_to_move = False
-    board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    result = 0
+    player1_to_move = False # True if player 1 to move; False if PLayer 2 to move
+    board = [1, 2, 3, 4, 5, 6, 7, 8, 9] # looks like a NumPad
+    result = 0 # 0 while game is going
+    # main loop
     while not result:
         player1_to_move = not player1_to_move
         draw_a_board(player1_to_move, board)
@@ -34,7 +35,7 @@ def main():
 def draw_a_board(player1_to_move, board):
     """ Draw or update a board in a terminal
     """
-    os.system('cls' if os.name == 'nt' else 'clear')
+    os.system('cls' if os.name == 'nt' else 'clear') # clears terminal
     print("\n---------Tic Tac Toe Game---------\n\n")
     print("Player 1 (X)    vs    Player 2 (O)\n\n")
     print("     |     |     ")
