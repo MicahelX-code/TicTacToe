@@ -6,9 +6,9 @@ def main():
     """
     player1_to_move = False # True if player 1 to move; False if PLayer 2 to move
     board = [1, 2, 3, 4, 5, 6, 7, 8, 9] # looks like a NumPad
-    result = 0 # 0 while game is going
+    result = 2 # 2 while game is going
     # main loop
-    while not result:
+    while result == 2:
         player1_to_move = not player1_to_move
         draw_a_board(player1_to_move, board)
         print("Player 1 (X)" if player1_to_move else "Player 2 (O)", "to move:\n>> ", end="")
@@ -24,10 +24,12 @@ def main():
             except ValueError:
                 move = -1
         board[move] = 'X' if player1_to_move else 'O'
-        result = check_win('X' if player1_to_move else 'O', board)
+        result = check_win(board)
     draw_a_board(player1_to_move, board)
     if result == 1:
-        print("\nPlayer 1 (X)" if player1_to_move else "\nPlayer 2 (O)", "wins!\n")
+        print("\nPlayer 1 (X) wins!\n")
+    elif result == -1:
+        print("\nPlayer 2 (O) wins!\n")
     else:
         print("\nDraw!\n")
 
@@ -49,26 +51,28 @@ def draw_a_board(player1_to_move, board):
     print("     |     |     \n")
 
 
-def check_win(letter, board):
-    """ Returns 1 if last player to move won
-        Returns 0 if game continius
-        Returns -1 if draw
+def check_win(board):
+    """ Returns 1 if X wins
+        Returns 0 if draw
+        Returns -1 if O wins
+        Returns 2 if game continius
     """
-    if board[0] == letter and board[1] == letter and board[2] == letter or \
-       board[0] == letter and board[4] == letter and board[8] == letter or \
-       board[0] == letter and board[3] == letter and board[6] == letter or \
-       board[1] == letter and board[4] == letter and board[7] == letter or \
-       board[2] == letter and board[5] == letter and board[8] == letter or \
-       board[3] == letter and board[4] == letter and board[5] == letter or \
-       board[4] == letter and board[2] == letter and board[6] == letter or \
-       board[6] == letter and board[7] == letter and board[8] == letter:
-            return 1
-    if board[0] == 1 or board[1] == 2 or board[2] == 3 or \
-       board[3] == 4 or board[4] == 5 or board[5] == 6 or \
-       board[6] == 7 or board[7] == 8 or board[8] == 9:
+    if board[0] != 1 and board[1] != 2 and board[2] != 3 and \
+        board[3] != 4 and board[4] != 5 and board[5] != 6 and \
+        board[6] != 7 and board[7] != 8 and board[8] != 9:
             return 0
-    return -1
-
+    for letter in 'X', 'O':
+        if board[0] == letter and board[1] == letter and board[2] == letter or \
+            board[0] == letter and board[4] == letter and board[8] == letter or \
+            board[0] == letter and board[3] == letter and board[6] == letter or \
+            board[1] == letter and board[4] == letter and board[7] == letter or \
+            board[2] == letter and board[5] == letter and board[8] == letter or \
+            board[3] == letter and board[4] == letter and board[5] == letter or \
+            board[4] == letter and board[2] == letter and board[6] == letter or \
+            board[6] == letter and board[7] == letter and board[8] == letter:
+                if letter == 'X': return 1
+                else: return -1
+    return 2
 
 if __name__ == "__main__":
     main()

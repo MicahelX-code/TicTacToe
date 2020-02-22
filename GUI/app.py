@@ -1,21 +1,28 @@
-from tkinter import *
+import tkinter as tk
 
 
-def str_to_sorted_list(event):
-    s = e.get()
-    s = s.split()
-    s.sort()
-    l['text'] = ' '.join(s)
+root = tk.Tk()
 
-root = Tk()
+# window settings
+root.title('')
+root.iconbitmap(r'C:\TicTacToe.ico')  
+window_width = 325
+window_height = 475
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+x = screen_width / 2 - window_width / 2
+y = screen_height / 2 - window_height / 2
+root.geometry('%dx%d+%d+%d' % (window_width, window_height, x, y))
+root.resizable(False, False)
 
-e = Entry(root, width=20)
-b = Button(root, text="Преобразовать")
-l = Label(root, bg='black', fg='white', width=20)
-b.bind('<Button-1>', str_to_sorted_list)
+# title_bar = tk.Frame(root, bg='white', relief='raised', bd=2)
+# close_button = tk.Button(title_bar, text='X', command=root.destroy)
+# title_bar.pack(expand=1)
+# close_button.pack(side='right')
 
-e.pack()
-b.pack()
-l.pack()
+canvas = tk.Canvas(root, width=window_width, height=window_height, bg='#f0f0f0')
+canvas.pack()
+
+
 
 root.mainloop()

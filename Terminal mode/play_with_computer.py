@@ -1,13 +1,12 @@
 import os
 import random
-from play_together import check_win
 
 
 def main():
     """ Main function
     """
     board = [1, 2, 3, 4, 5, 6, 7, 8, 9] # looks like a NumPad
-    result = 0 # 0 while game is going
+    result = 2 # 2 while game is going
     difficulty = int(input("Enter a difficulty [1 - 3]\n>> "))
     # choose difficulty
     while difficulty < 1 or difficulty > 3:
@@ -17,9 +16,9 @@ def main():
     elif difficulty == 2:
         make_move = level_2
     else:
-        make_move = level_3
+        make_move = level_3_1
     # main loop
-    while not result:
+    while result == 2:
         draw_a_board(board)
         try:
             players_move = int(input("Your turn:\n>> ")) - 1
@@ -32,26 +31,19 @@ def main():
             except ValueError:
                 players_move = -1
         board[players_move] = 'X'
-        result = check_win('X', board)
-        # win or draw (after player's move)
-        if result == 1:
-            draw_a_board(board)
-            print("\nYou win!\n")
-            break
-        elif result == -1:
-            draw_a_board(board)
-            print("\nDraw!\n")
-            break
+        result = check_win(board)
+        if result != 2: break
         board = make_move(board)
-        result = check_win('O', board)
-    else:
-        # lose or draw (after computer's move)
-        if result == 1:
-            draw_a_board(board)
-            print("\nYou lose!\n")
-        elif result == -1:
-            draw_a_board(board)
-            print("\nDraw!\n")
+        result = check_win(board)
+    if result == 1:
+        draw_a_board(board)
+        print("\nYou win!\n")
+    elif result == -1:
+        draw_a_board(board)
+        print("\nYou lose!\n")
+    elif result == 0:
+        draw_a_board(board)
+        print("\nDraw!\n")
 
 
 def level_1(board):
@@ -100,7 +92,7 @@ def level_2(board):
     return board
 
 
-def level_3(board):
+def level_3_1(board):
     """ Difficulty: hard
 
         1) Win in 1 move if possible
@@ -162,6 +154,26 @@ def level_3(board):
     return board
 
 
+def level_3_2(board):
+    """ Difficulty: cyberpunk (minimax based)
+    """
+    bestScore = - float('inf')
+    for i in board:
+        if i != 'X' and i != 'O':
+            board[i] = 'O'
+            score = minimax(board, 0, False)
+            board[i] = i + 1
+            if score > bestScore:
+                bestScore = score
+                bestMove = i
+
+
+def minimax(board, deapth, isMaximizing):
+    result = check_win(board)
+    if result != 0:
+        return result
+
+
 def draw_a_board(board):
     """ Draw or update the board in terminal
     """
@@ -177,6 +189,30 @@ def draw_a_board(board):
     print("     |     |     ")
     print(f"  {board[0]}  |  {board[1]}  |  {board[2]}  ")
     print("     |     |     \n")
+
+
+def check_win(board):
+    """ Returns 1 if X wins
+        Returns 0 if draw
+        Returns -1 if O wins
+        Returns 2 if game continius
+    """
+    if board[0] != 1 and board[1] != 2 and board[2] != 3 and \
+        board[3] != 4 and board[4] != 5 and board[5] != 6 and \
+        board[6] != 7 and board[7] != 8 and board[8] != 9:
+            return 0
+    for letter in 'X', 'O':
+        if board[0] == letter and board[1] == letter and board[2] == letter or \
+            board[0] == letter and board[4] == letter and board[8] == letter or \
+            board[0] == letter and board[3] == letter and board[6] == letter or \
+            board[1] == letter and board[4] == letter and board[7] == letter or \
+            board[2] == letter and board[5] == letter and board[8] == letter or \
+            board[3] == letter and board[4] == letter and board[5] == letter or \
+            board[4] == letter and board[2] == letter and board[6] == letter or \
+            board[6] == letter and board[7] == letter and board[8] == letter:
+                if letter == 'X': return 1
+                else: return -1
+    return 2
 
 
 if __name__ == "__main__":
